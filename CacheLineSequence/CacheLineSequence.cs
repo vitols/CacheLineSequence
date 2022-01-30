@@ -1,12 +1,13 @@
 ﻿using NickStrupat;
+using System.Collections;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Consume
+namespace CacheLineSequence
 {
     public sealed class CacheLineSequence<T> : IDisposable where T : unmanaged
     {
-        private IntPtr _dataPtr;
+        private readonly IntPtr _dataPtr;
         private ref readonly T[] getData()
         {
             unsafe
@@ -23,11 +24,19 @@ namespace Consume
 
         public readonly int Length;
 
+        public Span<T> Data
+        {
+            get
+            {
+                return _data.AsSpan();
+            }
+        }
+
         public Span<T> this[int ind]
         {
             get
             {
-                if(ind < 0 || ind >= _dataSize)
+                if (ind < 0 || ind >= _dataSize)
                 {
                     throw new ArgumentOutOfRangeException(nameof(ind));
                 }
@@ -56,7 +65,7 @@ namespace Consume
         {
             Dispose(false);
             GC.SuppressFinalize(this);
-        }   
+        }
 
         private void Dispose(bool disposing)
         {
@@ -70,7 +79,6 @@ namespace Consume
             }
         }
     }
-
 
     //64b     64b     64b
     //1. 24b 40b 64b     64b

@@ -1,27 +1,19 @@
-﻿// See https://aka.ms/new-console-template for more information
-using BenchmarkDotNet.Running;
-using Consume;
+﻿using BenchmarkDotNet.Running;
+using CacheLineSequence;
 
 using var clseq = new CacheLineSequence<long>(
-    100, 100, 100, 100, 100, 101, 100, 100,
-    100, 100, 100, 100, 100, 100, 100, 100
+    101, 102, 103, 104, 105, 106, 107, 108,
+    201, 202, 203, 204, 205, 206, 207, 208
     );
-var cl = clseq[0];
 
-
-foreach (var item in cl)
+Console.ReadKey();
+for (int i = 0; i < clseq.Length; i++)
 {
-    Console.WriteLine(item);
+    foreach (var item in clseq[i])
+    {
+        Console.Write($"{item} ");
+    }
+    Console.WriteLine();
 }
 
-for (int i = 0; i < cl.Length; i++)
-{
-    cl[i] = 10L;
-}
-
-foreach (var item in cl)
-{
-    Console.WriteLine(item);
-}
-
-//var summary = BenchmarkRunner.Run<Benchmark>();
+//var summary = BenchmarkRunner.Run<AllocationBenchmark>();
