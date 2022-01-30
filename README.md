@@ -37,7 +37,7 @@ Output:
 201, 202, 203, 204, 205, 206, 207, 208
 ```
 
-##Benchmark
+## Allocation benchmark
 ```md
 BenchmarkDotNet=v0.13.1
 Job=ShortRun  IterationCount=3  LaunchCount=1
@@ -52,4 +52,4 @@ WarmupCount=3
 ```
 
 ## References
-The program uses the [CacheLineSize.NET](https://duckduckgo.com "CacheLineSize.NET library").
+The program uses [CacheLineSize.NET](https://github.com/NickStrupat/CacheLineSize.NET "CacheLineSize.NET library") package.
