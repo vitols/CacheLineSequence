@@ -4,7 +4,7 @@ A wrapper onto arrays of inlined (unmanaged) data to be represented as lines of 
 ## Description
 The idea is to allocate a chunk of data aligned on the cache line size boundary of the CPU, providing an abstraction over the lines.
 
-The class allocates on the managed memory to ensure a few things:
+The class allocates on the unmanaged memory to ensure a few things:
 1. Allocation happens on the cache line size boundary.
 2. There is no additional object header, method table ptr and array size overhead.
 3. The array is not being moved during the execution of the program by the GC.
