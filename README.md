@@ -1,5 +1,5 @@
 # CacheLineSequence
-A wrapper onto arrays of inlined (unmanaged) data to be represented as lines of cache.
+A wrapper onto arrays of inlined (value-type) data to be represented as lines of cache.
 
 ## Description
 The idea is to allocate a chunk of data aligned on the cache line size boundary of the CPU, providing an abstraction over the lines.
@@ -13,28 +13,30 @@ The indexer returns a Span<T> over each cache line.
 
 ## Usage
 ```csharp
+using System;
 using CacheLineSequence;
 
-using var clseq = new CacheLineSequence<long>(
+using var cacheLineSequence = new CacheLineSequence<long>(
     101, 102, 103, 104, 105, 106, 107, 108,
-    201, 202, 203, 204, 205, 206, 207, 208
-    );
-var cl = clseq[0];
+    201, 202, 203, 204, 205, 206, 207, 208);
 
-for(int i = 0; i < clseq.Length; i++)
+Console.WriteLine(cacheLineSequence.Length);
+
+for (int i = 0; i < cacheLineSequence.Length; i++)
 {
-    foreach(var item in clseq[i])
+    foreach (var item in cacheLineSequence[i])
     {
         Console.Write($"{item} ");
     }
+
     Console.WriteLine();
 }
 ```
 
 Output:
 ```sh
-101, 102, 103, 104, 105, 106, 107, 108,
-201, 202, 203, 204, 205, 206, 207, 208
+101 102 103 104 105 106 107 108
+201 202 203 204 205 206 207 208
 ```
 
 ## Allocation benchmark
@@ -52,4 +54,4 @@ WarmupCount=3
 ```
 
 ## References
-The program uses [CacheLineSize.NET](https://github.com/NickStrupat/CacheLineSize.NET "CacheLineSize.NET library") package.
+The program utilizes [CacheLineSize.NET](https://github.com/NickStrupat/CacheLineSize.NET "CacheLineSize.NET library") package to retrieve the platform's cache line size.
