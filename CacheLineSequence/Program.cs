@@ -1,15 +1,15 @@
-﻿using BenchmarkDotNet.Running;
+﻿using System;
 using CacheLineSequence;
 
-using var clseq = new CacheLineSequence<long>(
+using var cacheLineSequence = new CacheLineSequence<long>(
     101, 102, 103, 104, 105, 106, 107, 108,
-    201, 202, 203, 204, 205, 206, 207, 208
-    );
+    201, 202, 203, 204, 205, 206, 207, 208);
 
-Console.ReadKey();
-for (int i = 0; i < clseq.Length; i++)
+Console.WriteLine(cacheLineSequence.Length);
+
+for (int i = 0; i < cacheLineSequence.Length; i++)
 {
-    foreach (var item in clseq[i])
+    foreach (var item in cacheLineSequence[i])
     {
         Console.Write($"{item} ");
     }

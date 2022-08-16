@@ -1,6 +1,7 @@
-﻿using BenchmarkDotNet.Attributes;
+﻿using System.Collections.Generic;
+using System.Linq;
+using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Diagnostics.Windows.Configs;
-using CacheLineSequence;
 
 namespace CacheLineSequence
 {
